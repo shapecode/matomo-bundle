@@ -7,7 +7,7 @@ services:
             - '%shapecode_piwik.disabled%'
             - '%shapecode_piwik.no_script_tracking%'
             - '%shapecode_piwik.site_id%'
-            - '%shapecode_piwik.host%'
-            - '%shapecode_piwik.tracker_path%'
+            - '%shapecode_piwik.host_name%'
+            - '%shapecode_piwik.host_path%'
         tags:
             - { name: twig.extension }

@@ -36,11 +36,11 @@ class PiwikExtension extends \Twig_Extension
 
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
-            'host'             => $host,
-            'trackerPath'      => $trackerPath,
-            'noScriptTracking' => $noScriptTracking,
-            'siteId'           => $siteId,
-            'paq'              => [],
+            'host_name'          => $host,
+            'host_path'          => $trackerPath,
+            'no_script_tracking' => $noScriptTracking,
+            'site_id'            => $siteId,
+            'paqs'               => [],
         ]);
 
         $this->resolver = $resolver;
@@ -73,21 +73,21 @@ class PiwikExtension extends \Twig_Extension
 
         $options = $this->resolver->resolve($options);
 
-        $paq = json_encode($options['paq']);
-        $host = $options['host'];
-        $trackerPath = $options['trackerPath'];
-        $siteId = $options['siteId'];
-        $noScriptTracking = $options['noScriptTracking'];
+        $paq = $options['paqs'];
+        $hostName = $options['host_name'];
+        $hostPath = $options['host_path'];
+        $siteId = $options['site_id'];
+        $noScriptTracking = $options['no_script_tracking'];
 
-        $host = '//' . trim($host, '/');
-        $trackerPath = trim($trackerPath, '/') . '/';
+        $hostName = '//' . trim($hostName, '/');
+        $hostPath = trim($hostPath, '/') . '/';
 
         $html = $env->render($this->template, [
-            'paq'              => $paq,
-            'host'             => $host,
-            'trackerPath'      => $trackerPath,
-            'siteId'           => $siteId,
-            'noScriptTracking' => $noScriptTracking,
+            'paqs'               => $paq,
+            'host_name'          => $hostName,
+            'host_path'          => $hostPath,
+            'site_id'            => $siteId,
+            'no_script_tracking' => $noScriptTracking,
         ]);
 
         return $html;

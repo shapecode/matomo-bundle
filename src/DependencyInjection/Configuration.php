@@ -27,8 +27,8 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('template')->defaultValue('@ShapecodePiwik/Piwik/code.html.twig')->end()
             ->scalarNode('disabled')->defaultValue('%kernel.debug%')->end()
             ->scalarNode('no_script_tracking')->defaultTrue()->end()
-            ->scalarNode('host')->isRequired()->end()
-            ->scalarNode('tracker_path')->defaultNull()->end()
+            ->scalarNode('host_name')->isRequired()->end()
+            ->scalarNode('host_path')->defaultNull()->end()
             ->scalarNode('site_id')->isRequired()->end()
             ->end();
 
