@@ -12,7 +12,6 @@ Simply add the following to your composer.json (see http://getcomposer.org/):
 
 ```json
 "require": {
-    // ...
     "shapecode/piwik-bundle": "~1.0"
 }
 ```
