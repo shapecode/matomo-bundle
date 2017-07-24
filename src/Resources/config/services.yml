@@ -1,0 +1,13 @@
+services:
+    shapecode_piwik.twig_extension:
+        class: Shapecode\Bundle\PiwikBundle\Twig\Extension\PiwikExtension
+        public: false
+        arguments:
+            - '%shapecode_piwik.template%'
+            - '%shapecode_piwik.disabled%'
+            - '%shapecode_piwik.no_script_tracking%'
+            - '%shapecode_piwik.site_id%'
+            - '%shapecode_piwik.host%'
+            - '%shapecode_piwik.tracker_path%'
+        tags:
+            - { name: twig.extension }

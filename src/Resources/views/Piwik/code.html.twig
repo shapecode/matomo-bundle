@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    var _paq = (_paq || []).concat({{ paqs|json_encode }});
+
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+
+    (function () {
+        var u = "{{ host ~ trackerPath }}";
+        _paq.push(['setTrackerUrl', u + 'piwik.php']);
+        _paq.push(['setSiteId', '{{ siteId }}']);
+        var d = document;
+        var g = d.createElement('script');
+        var s = d.getElementsByTagName('script')[0];
+
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'piwik.js';
+        s.parentNode.insertBefore(g, s);
+    })();
+</script>
+
+{% if noScriptTracking %}
+    <noscript><p><img src="{{ host ~ trackerPath }}piwik.php?idsite={{ siteId }}&rec=1" style="border:0;" alt=""/></p></noscript>
+{% endif %}
