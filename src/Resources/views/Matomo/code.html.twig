@@ -6,7 +6,7 @@
 
     (function () {
         var u = "{{ host_name ~ host_path }}";
-        _paq.push(['setTrackerUrl', u + 'piwik.php']);
+        _paq.push(['setTrackerUrl', u + 'matomo.php']);
         _paq.push(['setSiteId', '{{ site_id }}']);
         var d = document;
         var g = d.createElement('script');
@@ -15,11 +15,11 @@
         g.type = 'text/javascript';
         g.async = true;
         g.defer = true;
-        g.src = u + 'piwik.js';
+        g.src = u + 'matomo.js';
         s.parentNode.insertBefore(g, s);
     })();
 </script>
 
 {% if no_script_tracking %}
-    <noscript><p><img src="{{ host_name ~ host_path }}piwik.php?idsite={{ site_id }}&rec=1" style="border:0;" alt=""/></p></noscript>
+    <noscript><p><img src="{{ host_name ~ host_path }}matomo.php?idsite={{ site_id }}&rec=1" style="border:0;" alt=""/></p></noscript>
 {% endif %}

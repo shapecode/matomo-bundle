@@ -1,13 +1,13 @@
 services:
-    shapecode_piwik.twig_extension:
-        class: Shapecode\Bundle\PiwikBundle\Twig\Extension\PiwikExtension
+    shapecode_matomo.twig_extension:
+        class: Shapecode\Bundle\MatomoBundle\Twig\Extension\MatomoExtension
         public: false
         arguments:
-            - '%shapecode_piwik.template%'
-            - '%shapecode_piwik.disabled%'
-            - '%shapecode_piwik.no_script_tracking%'
-            - '%shapecode_piwik.site_id%'
-            - '%shapecode_piwik.host_name%'
-            - '%shapecode_piwik.host_path%'
+            - '%shapecode_matomo.template%'
+            - '%shapecode_matomo.disabled%'
+            - '%shapecode_matomo.no_script_tracking%'
+            - '%shapecode_matomo.site_id%'
+            - '%shapecode_matomo.host_name%'
+            - '%shapecode_matomo.host_path%'
         tags:
             - { name: twig.extension }

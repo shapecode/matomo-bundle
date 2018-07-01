@@ -1,16 +1,19 @@
 <?php
 
-namespace Shapecode\Bundle\PiwikBundle\Twig\Extension;
+namespace Shapecode\Bundle\MatomoBundle\Twig\Extension;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 /**
- * Class PiwikExtension
+ * Class MatomoExtension
  *
- * @package Shapecode\Bundle\PiwikBundle\Twig\Extension
+ * @package Shapecode\Bundle\MatomoBundle\Twig\Extension
  * @author  Nikita Loges
  */
-class PiwikExtension extends \Twig_Extension
+class MatomoExtension extends AbstractExtension
 {
 
     /** @var bool */
@@ -23,6 +26,7 @@ class PiwikExtension extends \Twig_Extension
     protected $resolver;
 
     /**
+     * @param $template
      * @param $disabled
      * @param $noScriptTracking
      * @param $siteId
@@ -47,12 +51,16 @@ class PiwikExtension extends \Twig_Extension
     }
 
     /**
-     * @return array
+     * @inheritdoc
      */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('piwik', [$this, 'piwik'], [
+            new TwigFunction('matomo', [$this, 'matomo'], [
+                'is_safe'           => ['html'],
+                'needs_environment' => true
+            ]),
+            new TwigFunction('piwik', [$this, 'matomo'], [
                 'is_safe'           => ['html'],
                 'needs_environment' => true
             ]),
@@ -60,12 +68,12 @@ class PiwikExtension extends \Twig_Extension
     }
 
     /**
-     * @param \Twig_Environment $env
-     * @param array             $options
+     * @param Environment $env
+     * @param array       $options
      *
-     * @return mixed|string
+     * @return string
      */
-    public function piwik(\Twig_Environment $env, array $options = [])
+    public function matomo(Environment $env, array $options = [])
     {
         if ($this->disabled) {
             return '';
