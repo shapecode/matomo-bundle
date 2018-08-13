@@ -3,6 +3,7 @@ services:
         class: Shapecode\Bundle\MatomoBundle\Twig\Extension\MatomoExtension
         public: false
         arguments:
+            - '@request_stack'
             - '%shapecode_matomo.template%'
             - '%shapecode_matomo.disabled%'
             - '%shapecode_matomo.no_script_tracking%'

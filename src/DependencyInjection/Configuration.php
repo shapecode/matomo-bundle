@@ -27,7 +27,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('template')->defaultValue('@ShapecodeMatomo/Matomo/code.html.twig')->end()
                 ->scalarNode('disabled')->defaultValue('%kernel.debug%')->end()
                 ->scalarNode('no_script_tracking')->defaultTrue()->end()
-                ->scalarNode('host_name')->isRequired()->end()
+                ->scalarNode('host_name')->defaultNull()->end()
                 ->scalarNode('host_path')->defaultNull()->end()
                 ->scalarNode('site_id')->isRequired()->end()
             ->end();

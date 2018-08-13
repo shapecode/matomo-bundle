@@ -2,6 +2,7 @@
 
 namespace Shapecode\Bundle\MatomoBundle\Twig\Extension;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -33,10 +34,14 @@ class MatomoExtension extends AbstractExtension
      * @param $host
      * @param $trackerPath
      */
-    public function __construct($template, $disabled, $noScriptTracking, $siteId, $host, $trackerPath)
+    public function __construct(RequestStack $requestStack, $template, $disabled, $noScriptTracking, $siteId, $host, $trackerPath)
     {
         $this->disabled = $disabled;
         $this->template = $template;
+
+        $request = $requestStack->getMasterRequest();
+
+        $host = $host ?? $request->getSchemeAndHttpHost();
 
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
