@@ -26,6 +26,9 @@ class MatomoExtension extends AbstractExtension
     /** @var OptionsResolver */
     protected $resolver;
 
+    /** @var RequestStack */
+    protected $requestStack;
+
     /**
      * @param $template
      * @param $disabled
@@ -38,21 +41,7 @@ class MatomoExtension extends AbstractExtension
     {
         $this->disabled = $disabled;
         $this->template = $template;
-
-        $request = $requestStack->getMasterRequest();
-
-        $host = $host ?? $request->getSchemeAndHttpHost();
-
-        $resolver = new OptionsResolver();
-        $resolver->setDefaults([
-            'host_name'          => $host,
-            'host_path'          => $trackerPath,
-            'no_script_tracking' => $noScriptTracking,
-            'site_id'            => $siteId,
-            'paqs'               => [],
-        ]);
-
-        $this->resolver = $resolver;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -84,7 +73,7 @@ class MatomoExtension extends AbstractExtension
             return '';
         }
 
-        $options = $this->resolver->resolve($options);
+        $options = $this->getResolver()->resolve($options);
 
         $paq = $options['paqs'];
         $hostName = $options['host_name'];
@@ -104,5 +93,30 @@ class MatomoExtension extends AbstractExtension
         ]);
 
         return $html;
+    }
+
+    /**
+     * @return OptionsResolver
+     */
+    protected function getResolver()
+    {
+        if ($this->resolver !== null) {
+            return $this->resolver;
+        }
+
+        $request = $this->requestStack->getMasterRequest();
+
+        $host = $host ?? $request->getSchemeAndHttpHost();
+
+        $resolver = new OptionsResolver();
+        $resolver->setDefaults([
+            'host_name'          => $host,
+            'host_path'          => $trackerPath,
+            'no_script_tracking' => $noScriptTracking,
+            'site_id'            => $siteId,
+            'paqs'               => [],
+        ]);
+
+        $this->resolver = $resolver;
     }
 }
