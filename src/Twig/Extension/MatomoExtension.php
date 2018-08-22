@@ -29,6 +29,18 @@ class MatomoExtension extends AbstractExtension
     /** @var RequestStack */
     protected $requestStack;
 
+    /** @var boolean */
+    protected $noScriptTracking;
+
+    /** @var string */
+    protected $siteId;
+
+    /** @var string */
+    protected $host;
+
+    /** @var string */
+    protected $trackerPath;
+
     /**
      * @param $template
      * @param $disabled
@@ -42,6 +54,10 @@ class MatomoExtension extends AbstractExtension
         $this->disabled = $disabled;
         $this->template = $template;
         $this->requestStack = $requestStack;
+        $this->noScriptTracking = $noScriptTracking;
+        $this->siteId = $siteId;
+        $this->host = $host;
+        $this->trackerPath = $trackerPath;
     }
 
     /**
@@ -66,6 +82,9 @@ class MatomoExtension extends AbstractExtension
      * @param array       $options
      *
      * @return string
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function matomo(Environment $env, array $options = [])
     {
@@ -104,9 +123,14 @@ class MatomoExtension extends AbstractExtension
             return $this->resolver;
         }
 
+        $host = $this->host;
+        $trackerPath = $this->trackerPath;
+        $noScriptTracking = $this->noScriptTracking;
+        $siteId = $this->siteId;
+
         $request = $this->requestStack->getMasterRequest();
 
-        $host = $host ?? $request->getSchemeAndHttpHost();
+        $host = ($host !== null) ? $host : $request->getSchemeAndHttpHost();
 
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
