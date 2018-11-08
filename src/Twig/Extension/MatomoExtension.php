@@ -142,5 +142,7 @@ class MatomoExtension extends AbstractExtension
         ]);
 
         $this->resolver = $resolver;
+
+        return $resolver;
     }
 }
